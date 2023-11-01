@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yoshiultras.buildingsManager.MainController">
+
+    <Button fx:id="button" layoutX="274.0" layoutY="263.0" mnemonicParsing="false" onAction="#go" text="Button" />
+    <Label fx:id="label" layoutX="286.0" layoutY="337.0" text="Label" />
+
+</AnchorPane>
