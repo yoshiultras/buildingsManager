@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +23,7 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
     private final ApplicationContext AC;
 
     public StageListener(@Value("${spring.application.title}") String applicationTitle,
-                         @Value("classpath:/main.fxml") Resource resource,
+                         @Value("classpath:/login.fxml") Resource resource,
                          @Value("${spring.application.width}") int width,
                          @Value("${spring.application.height}") int height,
                          ApplicationContext ac) {
