@@ -1,4 +1,4 @@
-package com.yoshiultras.buildingsManager.controllers;
+package com.yoshiultras.buildingsManager.controller;
 
 public class MainController implements FXMLController {
 }

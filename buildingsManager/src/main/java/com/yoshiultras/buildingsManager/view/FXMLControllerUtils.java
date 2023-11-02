@@ -1,6 +1,6 @@
 package com.yoshiultras.buildingsManager.view;
 
-import com.yoshiultras.buildingsManager.controllers.FXMLController;
+import com.yoshiultras.buildingsManager.controller.FXMLController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

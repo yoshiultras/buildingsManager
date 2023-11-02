@@ -4,9 +4,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ApartmentUtils {
-
-
-
     private int getLevenshteinDistance(String X, String Y)
     {
         int m = X.length();
@@ -36,8 +33,4 @@ public class ApartmentUtils {
         return getLevenshteinDistance(x, y) <= 4;
     }
 
-    public static void main(String[] args) {
-        System.out.println(new ApartmentUtils().getLevenshteinDistance("вафля", "строка"));
-        System.out.println(new ApartmentUtils().isValid("вафля", "строка"));
-    }
 }
