@@ -23,7 +23,7 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
     private final ApplicationContext AC;
 
     public StageListener(@Value("${spring.application.title}") String applicationTitle,
-                         @Value("classpath:/com/yoshiultras/buildingsManager/view/login.fxml") Resource resource,
+                         @Value("classpath:/com/yoshiultras/buildingsManager/view/houseList.fxml") Resource resource,
                          @Value("${spring.application.width}") int width,
                          @Value("${spring.application.height}") int height,
                          ApplicationContext ac) {
@@ -42,9 +42,10 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             fxmlLoader.setControllerFactory(AC::getBean);
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root, HEIGHT, WIDTH);
+            Scene scene = new Scene(root, WIDTH, HEIGHT);
             stage.setScene(scene);
             stage.setTitle(this.APPLICATION_TITLE);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);

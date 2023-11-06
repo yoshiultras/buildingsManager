@@ -7,6 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -14,8 +16,12 @@ import java.io.IOException;
 @Component
 public class FXMLControllerUtils {
 
+    @Autowired
+    private ApplicationContext AC;
+
     public FXMLController changeScene(ActionEvent event, String fxml) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        loader.setControllerFactory(AC::getBean);
         Parent root = loader.load();
         FXMLController controller = loader.getController();
         setView(event, root);
