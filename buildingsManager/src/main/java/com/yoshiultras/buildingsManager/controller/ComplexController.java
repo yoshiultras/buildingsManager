@@ -40,6 +40,8 @@ public class ComplexController implements FXMLController, Initializable {
     private TableColumn<HouseDao, String> street, number;
     @FXML
     private TableView<HouseDao> table;
+    @FXML
+    private Label errorLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,18 +75,33 @@ public class ComplexController implements FXMLController, Initializable {
         fxmlControllerUtils.changeScene(event, "complexList.fxml");
     }
     public void edit(ActionEvent event) {
-        residentialComplex.setName(name.getText());
-        residentialComplex.setStatus(status.getValue());
-        residentialComplex.setBuildingCost(Integer.valueOf(buildingCost.getText()));
-        residentialComplex.setAddedValue(Integer.valueOf(addedValue.getText()));
-        residentialComplex.setCity(city.getText());
-        if(residentialComplexService.validToSetPlan(residentialComplex) ||
-                !status.getValue().equals("plan")) residentialComplexService.update(residentialComplex);
-
+        try {
+            errorLabel.setVisible(false);
+            residentialComplex.setName(name.getText());
+            residentialComplex.setStatus(status.getValue());
+            residentialComplex.setBuildingCost(Integer.valueOf(buildingCost.getText()));
+            residentialComplex.setAddedValue(Integer.valueOf(addedValue.getText()));
+            residentialComplex.setCity(city.getText());
+            if(residentialComplexService.validToSetPlan(residentialComplex) ||
+                    !status.getValue().equals("plan")) residentialComplexService.update(residentialComplex);
+        } catch (Exception e) {
+            errorLabel.setVisible(true);
+        }
     }
     public void add(ActionEvent event) {
-        ResidentialComplex newComplex = new ResidentialComplex(name.getText(), status.getValue(), city.getText(),
-                Integer.valueOf(buildingCost.getText()), Integer.valueOf(addedValue.getText()));
-        residentialComplexService.save(newComplex);
+        try {
+            errorLabel.setVisible(false);
+            ResidentialComplex newComplex = new ResidentialComplex(name.getText(), status.getValue(), city.getText(),
+                    Integer.valueOf(buildingCost.getText()), Integer.valueOf(addedValue.getText()));
+            residentialComplexService.save(newComplex);
+        } catch (Exception e) {
+            errorLabel.setVisible(true);
+        }
+    }
+    public void setAddMode() {
+        editButton.setDisable(true);
+        editButton.setVisible(false);
+        addButton.setDisable(false);
+        addButton.setVisible(true);
     }
 }

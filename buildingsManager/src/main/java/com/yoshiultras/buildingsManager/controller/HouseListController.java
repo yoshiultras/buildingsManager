@@ -139,4 +139,7 @@ public class HouseListController implements FXMLController, Initializable {
     public void goToApartments(ActionEvent event) throws IOException {
         fxmlControllerUtils.changeScene(event, "apartmentList.fxml");
     }
+    public void goToReview(ActionEvent event) throws IOException {
+        fxmlControllerUtils.changeScene(event, "review.fxml");
+    }
 }

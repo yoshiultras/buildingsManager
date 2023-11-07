@@ -11,7 +11,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableAutoConfiguration
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 public class BootfulApplication {
-    public static void main(String[] args) {
-        Application.launch(BuildingsManagerApplication.class, args);
+    public static void main(String[] args) throws Exception {
+        try {
+            Application.launch(BuildingsManagerApplication.class, args);
+        } catch (Exception e) {
+            throw new Exception("Подключитесь к VPN Московского Политеха");
+        }
+
     }
 }

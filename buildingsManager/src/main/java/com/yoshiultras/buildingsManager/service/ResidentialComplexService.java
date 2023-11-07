@@ -37,4 +37,8 @@ public class ResidentialComplexService {
     public boolean validToSetPlan(ResidentialComplex residentialComplex) {
         return residentialComplexRepository.findBoughtApartment(residentialComplex.getId()).isEmpty();
     }
+
+    public String getNameByHouseId(Long id) {
+        return residentialComplexRepository.findNameByHouseId(id);
+    }
 }

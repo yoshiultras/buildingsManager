@@ -1,10 +1,6 @@
 package com.yoshiultras.buildingsManager.controller;
 
 import com.yoshiultras.buildingsManager.dao.ApartmentDao;
-import com.yoshiultras.buildingsManager.dao.HouseDao;
-import com.yoshiultras.buildingsManager.dao.ResidentialComplexDao;
-import com.yoshiultras.buildingsManager.model.Apartment;
-import com.yoshiultras.buildingsManager.model.ResidentialComplex;
 import com.yoshiultras.buildingsManager.service.ApartmentService;
 import com.yoshiultras.buildingsManager.service.HouseService;
 import com.yoshiultras.buildingsManager.utils.ApartmentUtils;
@@ -14,6 +10,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
@@ -40,35 +37,30 @@ public class ApartmentListController implements FXMLController, Initializable {
     private ApartmentUtils apartmentUtils;
     @Autowired
     private FXMLControllerUtils fxmlControllerUtils;
-    @FXML
-    private TableView<ApartmentDao> table;
-    @FXML
-    private TableColumn<ApartmentDao, String> complex, address, status;
-    @FXML
-    private TableColumn<ApartmentDao, Double> square;
-    @FXML
-    private TableColumn<ApartmentDao, Integer> rooms, entrance, storey;
-    @FXML
-    private TableColumn buttons;
+
+    private TableView<ApartmentDao> table = new TableView<>();
+
+    private TableColumn<ApartmentDao, String> complex = new TableColumn<>("ЖК"), address = new TableColumn<>("Адрес"), status = new TableColumn<>("Статус");
+
+    private TableColumn<ApartmentDao, Double> square = new TableColumn<>("Площадь");
+
+    private TableColumn<ApartmentDao, Integer> rooms = new TableColumn<>("Комнаты"), entrance = new TableColumn<>("Подъезд"), storey = new TableColumn<>("Этаж");
+
+    private TableColumn buttons = new TableColumn<>();
     @FXML
     private ChoiceBox<String> complexFilter, houseFilter, statusFilter;
     @FXML
     private TextField storeyFilter, entranceFilter, searchFilter;
-
+    @FXML
+    private Pagination pagination;
+    @FXML
+    private Label errorLabel;
+    private final static int rowsPerPage = 12;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         apartmentList = apartmentService.getAllDao();
         filteredList = new FilteredList<>(FXCollections.observableList(apartmentList));
-
-        complex.setCellValueFactory(new PropertyValueFactory<ApartmentDao, String>("complex"));
-        address.setCellValueFactory(new PropertyValueFactory<ApartmentDao, String>("address"));
-        square.setCellValueFactory(new PropertyValueFactory<ApartmentDao, Double>("square"));
-        rooms.setCellValueFactory(new PropertyValueFactory<ApartmentDao, Integer>("rooms"));
-        entrance.setCellValueFactory(new PropertyValueFactory<ApartmentDao, Integer>("entrance"));
-        storey.setCellValueFactory(new PropertyValueFactory<ApartmentDao, Integer>("storey"));
-        status.setCellValueFactory(new PropertyValueFactory<ApartmentDao, String>("statusSale"));
-
 
         List<String> complexes = new ArrayList<>();
         List<String> houses = new ArrayList<>();
@@ -88,48 +80,85 @@ public class ApartmentListController implements FXMLController, Initializable {
         entranceFilter.textProperty().addListener((observable, oldValue, newValue) -> filter());
         storeyFilter.textProperty().addListener((observable, oldValue, newValue) -> filter());
 
+        if (table.getColumns().size() == 0) {
+            complex.setCellValueFactory(new PropertyValueFactory<ApartmentDao, String>("complex"));
+            address.setCellValueFactory(new PropertyValueFactory<ApartmentDao, String>("address"));
+            square.setCellValueFactory(new PropertyValueFactory<ApartmentDao, Double>("square"));
+            rooms.setCellValueFactory(new PropertyValueFactory<ApartmentDao, Integer>("rooms"));
+            entrance.setCellValueFactory(new PropertyValueFactory<ApartmentDao, Integer>("entrance"));
+            storey.setCellValueFactory(new PropertyValueFactory<ApartmentDao, Integer>("storey"));
+            status.setCellValueFactory(new PropertyValueFactory<ApartmentDao, String>("statusSale"));
 
-        Callback<TableColumn<ApartmentDao, String>, TableCell<ApartmentDao, String>> cellFactory = (param) -> {
-            final TableCell<ApartmentDao, String> cell = new TableCell<ApartmentDao, String>() {
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    if (empty) {
-                        setGraphic(null);
-                        setText(null);
+            complex.setPrefWidth(143);
+            address.setPrefWidth(173);
+            square.setPrefWidth(63);
+            rooms.setPrefWidth(54);
+            entrance.setPrefWidth(64);
+            storey.setPrefWidth(41);
+            status.setPrefWidth(74);
+            buttons.setPrefWidth(77);
+
+
+
+
+            Callback<TableColumn<ApartmentDao, String>, TableCell<ApartmentDao, String>> cellFactory = (param) -> {
+                final TableCell<ApartmentDao, String> cell = new TableCell<ApartmentDao, String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        }
+                        else {
+                            final Button editButton = new Button("Изменить");
+                            editButton.setOnAction(event -> {
+                                ApartmentDao apartmentDao = getTableView().getItems().get(getIndex());
+                                try {
+                                    ApartmentController controller = (ApartmentController) fxmlControllerUtils.changeScene(event, "apartment.fxml");
+                                    controller.setApartment(apartmentService.getById(apartmentDao.getId()).orElseThrow());
+                                    controller.setText();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            });
+                            setGraphic(editButton);
+                            setText(null);
+                        }
                     }
-                    else {
-                        final Button editButton = new Button("Изменить");
-                        editButton.setOnAction(event -> {
-                            ApartmentDao apartmentDao = getTableView().getItems().get(getIndex());
-                            try {
-                                ApartmentController controller = (ApartmentController) fxmlControllerUtils.changeScene(event, "apartment.fxml");
-                                controller.setApartment(apartmentService.getById(apartmentDao.getId()).orElseThrow());
-                                controller.setText();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        });
-                        setGraphic(editButton);
-                        setText(null);
-                    }
-                }
+                };
+                return cell;
             };
-            return cell;
-        };
 
-        buttons.setCellFactory(cellFactory);
+            buttons.setCellFactory(cellFactory);
 
-        TableView.TableViewSelectionModel<ApartmentDao> selectionModel = table.getSelectionModel();
-        selectionModel.selectedItemProperty().addListener((val, oldVal, newVal) -> {
-            if(newVal != null) {
-                selectedApartment = newVal;
+            TableView.TableViewSelectionModel<ApartmentDao> selectionModel = table.getSelectionModel();
+            selectionModel.selectedItemProperty().addListener((val, oldVal, newVal) -> {
+                if(newVal != null) {
+                    selectedApartment = newVal;
+                }
+            });
+
+
+            table.getColumns().addAll(complex, address, square, rooms, entrance, storey, status, buttons);
+            for (TableColumn<ApartmentDao, ?> column : table.getColumns()) {
+                column.setResizable(false);
+                column.setSortable(false);
             }
-        });
-        table.setItems(filteredList);
+        }
+
+        pagination.setPageFactory(this::createPage);
+        pagination.setPageCount((filteredList.size() / rowsPerPage) + (filteredList.size() % rowsPerPage == 0 ? 0 : 1));
+    }
+    private Node createPage(int pageIndex) {
+        int fromIndex = pageIndex * rowsPerPage;
+        int toIndex = Math.min(fromIndex + rowsPerPage, filteredList.size());
+        table.setItems(FXCollections.observableArrayList(filteredList.subList(fromIndex, toIndex)));
+        return table;
     }
 
-    public void addApartment(ActionEvent event) {
-
+    public void addApartment(ActionEvent event) throws IOException {
+        ApartmentController controller = (ApartmentController) fxmlControllerUtils.changeScene(event, "apartment.fxml");
+        controller.setAddMode();
     }
 
     public void houseFilter() {
@@ -139,13 +168,19 @@ public class ApartmentListController implements FXMLController, Initializable {
         );
     }
     public void filter() {
-        filteredList.setPredicate(
-                t ->  (complexFilter.getValue() == null || t.getComplex().equals(complexFilter.getValue())) &&
-                        (houseFilter.getValue() == null || t.getAddress().split(", ")[1].equals(houseFilter.getValue())) &&
-                        (statusFilter.getValue() == null || t.getStatusSale().equals(statusFilter.getValue())) &&
-                        (entranceFilter.getText().equals("") || t.getEntrance() == Integer.parseInt(entranceFilter.getText())) &&
-                        (storeyFilter.getText().equals("") || t.getStorey() == Integer.parseInt(storeyFilter.getText()))
-        );
+        try {
+            errorLabel.setVisible(false);
+            filteredList.setPredicate(
+                    t -> (complexFilter.getValue() == null || t.getComplex().equals(complexFilter.getValue())) &&
+                            (houseFilter.getValue() == null || t.getAddress().split(", ")[1].equals(houseFilter.getValue())) &&
+                            (statusFilter.getValue() == null || t.getStatusSale().equals(statusFilter.getValue())) &&
+                            (entranceFilter.getText().equals("") || t.getEntrance() == Integer.parseInt(entranceFilter.getText())) &&
+                            (storeyFilter.getText().equals("") || t.getStorey() == Integer.parseInt(storeyFilter.getText()))
+            );
+            pagination.setPageCount((filteredList.size() / rowsPerPage) + (filteredList.size() % rowsPerPage == 0 ? 0 : 1));
+        } catch (Exception e) {
+            errorLabel.setVisible(true);
+        }
     }
     public void reset(ActionEvent event) {
         complexFilter.setValue(null);
@@ -167,5 +202,9 @@ public class ApartmentListController implements FXMLController, Initializable {
                         apartmentUtils.isValid(t.getComplex(), searchFilter.getText()) ||
                         apartmentUtils.isValid(t.getComplex()+" "+t.getAddress(), searchFilter.getText())
         );
+        pagination.setPageCount((filteredList.size() / rowsPerPage) + (filteredList.size() % rowsPerPage == 0 ? 0 : 1));
+    }
+    public void goToReview(ActionEvent event) throws IOException {
+        fxmlControllerUtils.changeScene(event, "review.fxml");
     }
 }

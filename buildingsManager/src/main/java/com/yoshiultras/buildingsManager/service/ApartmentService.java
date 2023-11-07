@@ -65,4 +65,18 @@ public class ApartmentService {
     public Optional<Apartment> getById(Long id) {
         return apartmentRepository.findById(id);
     }
+
+    public boolean isValidToSetSold(Apartment apartment) {
+        return apartmentRepository.findPlanedComplex(apartment.getId()).isEmpty();
+    }
+
+    public void update(Apartment apartment) {
+        apartmentRepository.update(apartment.getId(), apartment.getHouseId(), apartment.getApartmentNumber(),
+                apartment.getEntrance(), apartment.getStorey(), apartment.getSquare(), apartment.getRooms(),
+                apartment.getStatusSale(), apartment.getCostApartmentConstruction(), apartment.getAdditionalCostOfFinishing());
+    }
+
+    public void save(Apartment apartment) {
+        apartmentRepository.save(apartment);
+    }
 }

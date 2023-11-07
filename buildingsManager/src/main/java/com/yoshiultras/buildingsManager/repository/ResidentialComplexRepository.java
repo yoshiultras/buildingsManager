@@ -41,4 +41,7 @@ public interface ResidentialComplexRepository extends JpaRepository<ResidentialC
     @Query("SELECT DISTINCT c FROM ResidentialComplex c JOIN House h ON h.complexId = c.id JOIN Apartment a ON a.houseId = h.id WHERE c.id = :id AND a.statusSale = 'sold'")
     Optional<ResidentialComplex> findBoughtApartment(@Param("id") Long id);
 
+    @Query("SELECT DISTINCT c.name FROM ResidentialComplex c JOIN House h ON h.complexId = c.id WHERE h.id = :id")
+    String findNameByHouseId(@Param("id") Long id);
+
 }

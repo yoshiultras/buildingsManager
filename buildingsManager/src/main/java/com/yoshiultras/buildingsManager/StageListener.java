@@ -23,7 +23,7 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
     private final ApplicationContext AC;
 
     public StageListener(@Value("${spring.application.title}") String applicationTitle,
-                         @Value("classpath:/com/yoshiultras/buildingsManager/view/houseList.fxml") Resource resource,
+                         @Value("classpath:/com/yoshiultras/buildingsManager/view/review.fxml") Resource resource,
                          @Value("${spring.application.width}") int width,
                          @Value("${spring.application.height}") int height,
                          ApplicationContext ac) {

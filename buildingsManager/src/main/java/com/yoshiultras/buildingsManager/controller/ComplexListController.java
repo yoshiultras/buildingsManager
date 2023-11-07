@@ -109,6 +109,7 @@ public class ComplexListController implements FXMLController, Initializable {
     }
     public void addComplex(ActionEvent event) throws IOException {
         ComplexController controller = (ComplexController) fxmlControllerUtils.changeScene(event, "complex.fxml");
+        controller.setAddMode();
     }
     public void reset(ActionEvent event) {
         statusFilter.setValue(null);
@@ -119,5 +120,8 @@ public class ComplexListController implements FXMLController, Initializable {
     }
     public void goToApartments(ActionEvent event) throws IOException {
         fxmlControllerUtils.changeScene(event, "apartmentList.fxml");
+    }
+    public void goToReview(ActionEvent event) throws IOException {
+        fxmlControllerUtils.changeScene(event, "review.fxml");
     }
 }

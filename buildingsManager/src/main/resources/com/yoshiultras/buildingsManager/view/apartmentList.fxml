@@ -3,8 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,7 +16,7 @@
         <font>
             <Font name="Tw Cen MT" size="14.0" />
         </font></Button>
-    <Label fx:id="label" layoutX="50.0" layoutY="127.0" prefHeight="56.0" prefWidth="138.0" text="TW cen" textFill="#37474f">
+    <Label fx:id="label" layoutX="101.0" layoutY="122.0" prefHeight="30.0" prefWidth="65.0" text="Квартиры" textFill="#37474f">
         <font>
             <Font name="Tw Cen MT Bold" size="14.0" />
         </font></Label>
@@ -41,18 +40,6 @@
             <Font name="Tw Cen MT" size="14.0" />
         </font>
     </Button>
-    <TableView fx:id="table" layoutX="304.0" layoutY="120.0" prefHeight="450.0" prefWidth="694.0" style="-fx-background-color: #ff9c1a; -fx-border-color: #37474f;">
-        <columns>
-            <TableColumn fx:id="complex" editable="false" prefWidth="143.0" resizable="false" sortable="false" style="-fx-size: 38; -fx-background-color: white; -fx-border-color: #37474f;" text="ЖК" />
-            <TableColumn fx:id="address" editable="false" prefWidth="173.0" resizable="false" sortable="false" style="-fx-background-color: white; -fx-border-color: #37474f;" text="Адрес" />
-            <TableColumn fx:id="square" editable="false" prefWidth="63.0" resizable="false" sortable="false" style="-fx-background-color: white; -fx-border-color: #37474f;" text="Площадь" />
-            <TableColumn fx:id="rooms" editable="false" prefWidth="54.0" resizable="false" sortable="false" style="-fx-background-color: white; -fx-border-color: #37474f;" text="Комнат" />
-            <TableColumn fx:id="entrance" editable="false" prefWidth="64.0" resizable="false" sortable="false" style="-fx-background-color: white; -fx-border-color: #37474f;" text="Подъезд" />
-            <TableColumn fx:id="storey" editable="false" prefWidth="41.0" resizable="false" sortable="false" style="-fx-background-color: white; -fx-border-color: #37474f;" text="Этаж" />
-            <TableColumn fx:id="status" prefWidth="74.0" style="-fx-background-color: white; -fx-border-color: #37474f;" text="Статус" />
-            <TableColumn fx:id="buttons" editable="false" minWidth="5.0" prefWidth="77.0" resizable="false" sortable="false" style="-fx-background-color: white; -fx-border-color: #37474f;" />
-        </columns>
-    </TableView>
     <ChoiceBox fx:id="complexFilter" layoutX="304.0" layoutY="30.0" prefHeight="30.0" prefWidth="150.0" />
     <TextField fx:id="storeyFilter" layoutX="809.0" layoutY="30.0" prefHeight="30.0" promptText="Этаж" />
     <Button fx:id="resetButton" layoutX="304.0" layoutY="79.0" mnemonicParsing="false" onAction="#reset" prefHeight="30.0" prefWidth="149.0" style="-fx-background-color: #ff9c1a;" text="Сбросить" textFill="#37474f">
@@ -69,5 +56,12 @@
          <Font name="Tw Cen MT" size="14.0" />
       </font>
    </Button>
+   <Pagination fx:id="pagination" layoutX="306.0" layoutY="137.0" prefHeight="448.0" prefWidth="695.0" />
+   <Button fx:id="button11" layoutX="64.0" layoutY="409.0" mnemonicParsing="false" onAction="#goToReview" prefHeight="38.0" prefWidth="138.0" style="-fx-background-color: #ff9c1a;" text="Отчет" textFill="#37474f">
+      <font>
+         <Font name="Tw Cen MT" size="14.0" />
+      </font>
+   </Button>
+   <Label fx:id="errorLabel" layoutX="811.0" layoutY="114.0" text="Неверный формат данных" textFill="RED" visible="false" />
 
 </AnchorPane>

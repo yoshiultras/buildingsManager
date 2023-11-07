@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,6 +38,8 @@ public class HouseController implements FXMLController, Initializable {
     private ChoiceBox<ResidentialComplex> complex;
     @FXML
     private Button returnButton, editButton, addButton;
+    @FXML
+    private Label errorLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,12 +67,17 @@ public class HouseController implements FXMLController, Initializable {
         fxmlControllerUtils.changeScene(event, "houseList.fxml");
     }
     public void edit(ActionEvent event) {
-        house.setStreet(street.getText());
-        house.setHouseNumber(houseNumber.getText());
-        house.setComplexId(complex.getValue().getId());
-        house.setAddedValue(Integer.valueOf(addedValue.getText()));
-        house.setBuildingCost(Integer.valueOf(buildingCost.getText()));
-        houseService.update(house);
+        try {
+            errorLabel.setVisible(false);
+            house.setStreet(street.getText());
+            house.setHouseNumber(houseNumber.getText());
+            house.setComplexId(complex.getValue().getId());
+            house.setAddedValue(Integer.valueOf(addedValue.getText()));
+            house.setBuildingCost(Integer.valueOf(buildingCost.getText()));
+            houseService.update(house);
+        } catch (Exception e) {
+            errorLabel.setVisible(true);
+        }
     }
 
     public void setAddMode() {
@@ -80,7 +88,12 @@ public class HouseController implements FXMLController, Initializable {
     }
 
     public void add(ActionEvent event) {
-        House newHouse = new House(street.getText(), houseNumber.getText(), 0, 0, complex.getValue().getId(), "", Integer.valueOf(addedValue.getText()), Integer.valueOf(buildingCost.getText()));
-        houseService.save(newHouse);
+        try {
+            errorLabel.setVisible(false);
+            House newHouse = new House(street.getText(), houseNumber.getText(), 0, 0, complex.getValue().getId(), "", Integer.valueOf(addedValue.getText()), Integer.valueOf(buildingCost.getText()));
+            houseService.save(newHouse);
+        } catch (Exception e) {
+            errorLabel.setVisible(true);
+        }
     }
 }

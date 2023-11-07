@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yoshiultras.buildingsManager.controller.ReviewController">
+   <children>
+      <Button fx:id="button" layoutX="64.0" layoutY="281.0" mnemonicParsing="false" onAction="#goToHouses" prefHeight="38.0" prefWidth="138.0" style="-fx-background-color: #ff9c1a;" text="Дома" textFill="#37474f">
+         <font>
+            <Font name="Tw Cen MT" size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="label" layoutX="114.0" layoutY="119.0" prefHeight="20.0" prefWidth="39.0" text="Отчет" textFill="#37474f">
+         <font>
+            <Font name="Tw Cen MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="button1" layoutX="64.0" layoutY="346.0" mnemonicParsing="false" onAction="#goToApartments" prefHeight="38.0" prefWidth="138.0" style="-fx-background-color: #ff9c1a;" text="Квартиры" textFill="#37474f">
+         <font>
+            <Font name="Tw Cen MT" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="button2" layoutX="64.0" layoutY="220.0" mnemonicParsing="false" onAction="#goToComplexes" prefHeight="38.0" prefWidth="138.0" style="-fx-background-color: #ff9c1a;" text="Комплексы" textFill="#37474f">
+         <font>
+            <Font name="Tw Cen MT" size="14.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="30.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../logo.png" />
+         </image>
+      </ImageView>
+      <Pagination fx:id="pagination" layoutX="306.0" layoutY="137.0" prefHeight="302.0" prefWidth="695.0" />
+      <Button fx:id="button11" layoutX="64.0" layoutY="409.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="138.0" style="-fx-background-color: #ff9c1a;" text="Отчет" textFill="#37474f">
+         <font>
+            <Font name="Tw Cen MT" size="14.0" />
+         </font>
+      </Button>
+      <ChoiceBox fx:id="complexFilter" layoutX="314.0" layoutY="40.0" prefHeight="30.0" prefWidth="150.0" />
+      <TextField fx:id="addedValue" layoutX="819.0" layoutY="40.0" prefHeight="30.0" />
+      <ChoiceBox fx:id="houseFilter" layoutX="314.0" layoutY="89.0" prefHeight="30.0" prefWidth="150.0" />
+      <TextField fx:id="roomCost" layoutX="653.0" layoutY="40.0" prefHeight="30.0" />
+      <TextField fx:id="squareCost" layoutX="484.0" layoutY="40.0" prefHeight="30.0" />
+      <Label fx:id="label1" layoutX="547.0" layoutY="495.0" />
+      <Label fx:id="label2" layoutX="547.0" layoutY="523.0" />
+      <Label fx:id="label3" layoutX="906.0" layoutY="495.0" />
+      <Label fx:id="label4" layoutX="906.0" layoutY="523.0" />
+      <Label fx:id="label5" layoutX="681.0" layoutY="551.0" />
+      <Button layoutX="653.0" layoutY="89.0" mnemonicParsing="false" onAction="#calculate" prefHeight="30.0" prefWidth="149.0" style="-fx-background-color: #ff9c1a;" text="Расчет" textFill="#37474f">
+         <font>
+            <Font name="Tw Cen MT" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="resetButton" layoutX="484.0" layoutY="89.0" mnemonicParsing="false" onAction="#reset" prefHeight="30.0" prefWidth="149.0" style="-fx-background-color: #ff9c1a;" text="Сбросить" textFill="#37474f">
+         <font>
+            <Font name="Tw Cen MT" size="14.0" />
+         </font>
+      </Button>
+      <Text layoutX="380.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cумма оценочной стоимости:" />
+      <Text layoutX="248.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cумма оценочных стоимостей непроданных квартир:" />
+      <Text layoutX="622.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cумма оценочных стоимостей проданных квартир:" />
+      <Text layoutX="730.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cумма затрат на строительство:" />
+      <Text layoutX="624.0" layoutY="564.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Прибыль:" />
+      <Label fx:id="errorLabel" layoutX="819.0" layoutY="89.0" prefHeight="30.0" prefWidth="149.0" text="Неверный формат данных" textFill="RED" visible="false" />
+      <Text layoutX="482.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Цена за квадрат" />
+      <Text layoutX="653.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Стоимость комнаты" />
+      <Text layoutX="819.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Добавочная стоимость" />
+      <Text layoutX="561.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Отчетные данные (в млн. рублей)" />
+   </children>
+</AnchorPane>
