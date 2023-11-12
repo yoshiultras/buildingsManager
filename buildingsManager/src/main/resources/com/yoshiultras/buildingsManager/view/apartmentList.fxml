@@ -16,9 +16,9 @@
         <font>
             <Font name="Tw Cen MT" size="14.0" />
         </font></Button>
-    <Label fx:id="label" layoutX="101.0" layoutY="122.0" prefHeight="30.0" prefWidth="65.0" text="Квартиры" textFill="#37474f">
+    <Label fx:id="label" layoutX="97.0" layoutY="108.0" prefHeight="30.0" prefWidth="72.0" text="Квартиры" textFill="#37474f">
         <font>
-            <Font name="Tw Cen MT Bold" size="14.0" />
+            <Font name="System Bold" size="14.0" />
         </font></Label>
     <Button fx:id="button1" layoutX="64.0" layoutY="346.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="138.0" style="-fx-background-color: #ff9c1a;" text="Квартиры" textFill="#37474f">
         <font>

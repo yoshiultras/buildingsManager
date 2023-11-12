@@ -13,6 +13,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -72,6 +76,7 @@ public class ComplexListController implements FXMLController, Initializable {
                     }
                     else {
                         final Button editButton = new Button("Изменить");
+                        editButton.setBackground(new Background(new BackgroundFill(Color.rgb(255, 156, 26), CornerRadii.EMPTY, null)));
                         editButton.setOnAction(event -> {
                             ResidentialComplexDao complexDao = getTableView().getItems().get(getIndex());
                             try {
