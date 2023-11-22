@@ -70,9 +70,11 @@
       <Text layoutX="776.0" layoutY="535.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cумма затрат на строительство:" />
       <Text layoutX="624.0" layoutY="564.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Прибыль:" />
       <Label fx:id="errorLabel" layoutX="819.0" layoutY="89.0" prefHeight="30.0" prefWidth="149.0" text="Неверный формат данных" textFill="RED" visible="false" />
-      <Text layoutX="482.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Цена за квадрат" />
+      <Text layoutX="484.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Цена за квадрат" />
       <Text layoutX="653.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Стоимость комнаты" />
       <Text layoutX="819.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Добавочная стоимость" />
       <Text layoutX="561.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Отчетные данные (в млн. рублей)" />
+      <Text layoutX="314.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ЖК" />
+      <Text layoutX="315.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Дом" wrappingWidth="32.77734375" />
    </children>
 </AnchorPane>
