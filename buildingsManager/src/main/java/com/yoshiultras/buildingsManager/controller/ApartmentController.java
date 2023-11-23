@@ -72,6 +72,7 @@ public class ApartmentController implements FXMLController, Initializable {
     public void edit(ActionEvent event) {
         try {
             errorLabel.setVisible(false);
+            if (Integer.parseInt(addedValue.getText()) < 0 || Integer.parseInt(storey.getText()) < 0 || Integer.parseInt(finishingCost.getText()) < 0 || Integer.parseInt(entrance.getText()) < 0 || Integer.parseInt(square.getText()) < 0 || Integer.parseInt(rooms.getText()) < 0) throw new Exception();
             apartment.setApartmentNumber(Integer.valueOf(apartmentNumber.getText()));
             apartment.setSquare(Double.valueOf(square.getText()));
             apartment.setStorey(Integer.valueOf(storey.getText()));
@@ -82,6 +83,7 @@ public class ApartmentController implements FXMLController, Initializable {
             apartment.setStatusSale(status.getValue());
             apartment.setHouseId(houseService.getHouseByNumber(house.getValue()).getId());
             if(!status.getValue().equals("sold") || apartmentService.isValidToSetSold(apartment)) apartmentService.update(apartment);
+            else throw new Exception();
         } catch (Exception e) {
             errorLabel.setVisible(true);
         }
@@ -90,11 +92,13 @@ public class ApartmentController implements FXMLController, Initializable {
     public void add(ActionEvent event) {
         try {
             errorLabel.setVisible(false);
+            if (Integer.parseInt(addedValue.getText()) < 0 || Integer.parseInt(storey.getText()) < 0 || Integer.parseInt(finishingCost.getText()) < 0 || Integer.parseInt(entrance.getText()) < 0 || Integer.parseInt(square.getText()) < 0 || Integer.parseInt(rooms.getText()) < 0) throw new Exception();
             Apartment newApartment = new Apartment(houseService.getHouseByNumber(house.getValue()).getId(),
                     Integer.parseInt(apartmentNumber.getText()), Double.parseDouble(square.getText()), Integer.parseInt(rooms.getText()),
                     Integer.parseInt(entrance.getText()), Integer.parseInt(storey.getText()), status.getValue(),
                     Integer.parseInt(finishingCost.getText()), Integer.parseInt(addedValue.getText()));
-            apartmentService.save(newApartment);
+            if(!status.getValue().equals("sold") || apartmentService.isValidToSetSold(apartment)) apartmentService.save(newApartment);
+            else throw new Exception();
         } catch (Exception e) {
             errorLabel.setVisible(true);
         }

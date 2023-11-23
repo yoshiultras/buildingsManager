@@ -77,6 +77,7 @@ public class ComplexController implements FXMLController, Initializable {
     public void edit(ActionEvent event) {
         try {
             errorLabel.setVisible(false);
+            if (Integer.parseInt(addedValue.getText()) < 0 || Integer.parseInt(buildingCost.getText()) < 0) throw new Exception();
             residentialComplex.setName(name.getText());
             residentialComplex.setStatus(status.getValue());
             residentialComplex.setBuildingCost(Integer.valueOf(buildingCost.getText()));
@@ -91,6 +92,7 @@ public class ComplexController implements FXMLController, Initializable {
     public void add(ActionEvent event) {
         try {
             errorLabel.setVisible(false);
+            if (Integer.parseInt(addedValue.getText()) < 0 || Integer.parseInt(buildingCost.getText()) < 0) throw new Exception();
             ResidentialComplex newComplex = new ResidentialComplex(name.getText(), status.getValue(), city.getText(),
                     Integer.valueOf(buildingCost.getText()), Integer.valueOf(addedValue.getText()));
             residentialComplexService.save(newComplex);

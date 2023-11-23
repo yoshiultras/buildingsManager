@@ -69,6 +69,7 @@ public class HouseController implements FXMLController, Initializable {
     public void edit(ActionEvent event) {
         try {
             errorLabel.setVisible(false);
+            if (Integer.parseInt(addedValue.getText()) < 0 || Integer.parseInt(buildingCost.getText()) < 0) throw new Exception();
             house.setStreet(street.getText());
             house.setHouseNumber(houseNumber.getText());
             house.setComplexId(complex.getValue().getId());
@@ -90,6 +91,7 @@ public class HouseController implements FXMLController, Initializable {
     public void add(ActionEvent event) {
         try {
             errorLabel.setVisible(false);
+            if (Integer.parseInt(addedValue.getText()) < 0 || Integer.parseInt(buildingCost.getText()) < 0) throw new Exception();
             House newHouse = new House(street.getText(), houseNumber.getText(), 0, 0, complex.getValue().getId(), "", Integer.valueOf(addedValue.getText()), Integer.valueOf(buildingCost.getText()));
             houseService.save(newHouse);
         } catch (Exception e) {
